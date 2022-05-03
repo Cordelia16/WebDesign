@@ -1,0 +1,112 @@
+﻿@model Industry_4._0.Models.DiscussionForum
+
+@{
+    ViewData["Title"] = "Edit";
+}
+
+<div class="bgis">
+    <div class="bgc bgs">
+        <header id="ind3">Edit Feedback</header>
+
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-8">
+        <form asp-action="Edit">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="Id" />
+            <input type="hidden" asp-for="Like" />
+            <div class="form-group">
+                <label asp-for="Heading" class="control-label"></label>
+                <input asp-for="Heading" class="form-control"/>
+                <span asp-validation-for="Heading" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Rating" class="control-label"></label>
+                <input asp-for="Rating" class="form-control" />
+                <span asp-validation-for="Rating" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="TopicTitle" class="control-label"></label>
+                <select asp-for="TopicTitle" class="form-control">
+                    <option value="" selected disabled>Select a Company or Organisation</option>
+                    <optgroup label="AI">
+                        <option>&#64 IBM</option>
+                        <option>&#64 Microsoft</option>
+                        <option>&#64 CSIRO</option>
+                        <option>&#64 Amazon</option>
+                    </optgroup>
+                    <optgroup label="IoT">
+                        <option>&#64 IBM</option>
+                        <option>&#64 Microsoft</option>
+                        <option>&#64 Amazon</option>
+                        <option>&#64 CIO</option>
+                    </optgroup>
+                    <optgroup label="Cognitive Computing">
+                        <option>&#64 IBM</option>
+                        <option>&#64 Microsoft</option>
+                        <option>&#64 Google</option>
+                        <option>&#64 Forbes</option>
+                    </optgroup>
+                    <optgroup label="Cloud Computing">
+                        <option>&#64 Google</option>
+                        <option>&#64 Microsoft</option>
+                        <option>&#64 IBM</option>
+                        <option>&#64 Amazon</option>
+                    </optgroup>
+                    <optgroup label="Robotics">
+                        <option>&#64 Forbes</option>
+                        <option>&#64 ZDNet</option>
+                        <option>&#64 I-Scoop robots cobots</option>
+                        <option>&#64 Automation World</option>
+                    </optgroup>
+                    <optgroup label="Blockchain">
+                        <option>&#64 Blockchain</option>
+                        <option>&#64 PC Magazine</option>
+                        <option>&#64 Forbes</option>
+                        <option>&#64 CSIRO</option>
+                    </optgroup>
+                </select>
+                <div class="form-group">
+                    <label asp-for="UserName" class="control-label"></label>
+                    <input asp-for="UserName" class="form-control" readonly />
+                    <span asp-validation-for="UserName" class="text-danger"></span>
+                </div>
+                <span asp-validation-for="TopicTitle" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="PostDate" class="control-label"></label>
+                <input asp-for="PostDate" class="form-control" readonly type="date" />
+                <span asp-validation-for="PostDate" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="MessageContent" class="control-label"></label>
+                <textarea asp-for="MessageContent" class="form-control" rows="5"></textarea>
+                <span asp-validation-for="MessageContent" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Agree" class="control-label"></label>
+                <input asp-for="Agree" class="form-control" />
+                <span asp-validation-for="Agree" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Disagree" class="control-label"></label>
+                <input asp-for="Disagree" class="form-control" />
+                <span asp-validation-for="Disagree" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <input asp-route-page="comAndOr" asp-route-folder="Home" type="submit" value="Save" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-controller="Home" asp-action="comAndOr">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

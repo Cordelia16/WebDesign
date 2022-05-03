@@ -1,0 +1,134 @@
+﻿@{
+    ViewData["Title"] = "Companies & Organizations";
+}
+
+<section id="bg4">
+    <header id="ind2">Companies & Organizations</header>
+    <p id="intro2">
+        The Industry 4.0 market is forecasted to reach $1 trillion by 2030, dominated by global technology giants including
+        Alphabet-Google, HP, Samsung, IBM, NEC, Microsoft, and more. According to the new 4-volume report by HSRC: Global
+        Industry 4.0 Market & Technologies 2018-2023, the Industry 4.0 market will reach $214B by 2023
+        <a href="https://www.ibm.com/industries/manufacturing?S_PKG=ov60479&cm_mmc=Search_Google-_-Industrial_Industrial+-+Discrete+Manufacturing-_-WW_NA-_-industry+4.0_Exact_ov60479&cm_mmca1=000020DR&cm_mmca2=10005255&cm_mmca7=9071954&cm_mmca8=kwd-297031802574&cm_mmca9=9a244c0e-4e2f-4a0c-879b-abaf5cee4a64&cm_mmca10=280798821827&cm_mmca11=e&mkwid=9a244c0e-4e2f-4a0c-879b-abaf5cee4a64|1082|36760&cvosrc=ppc.google.industry%204.0&cvo_campaign=000020DR&cvo_crid=280798821827&Matchtype=e">(www.prnewswire.com)</a>
+    </p>
+</section>
+<section id="tech" class="row">
+    <figure class="col-md-6 col-sm-6" style="padding-left: 15px; padding-right: 0px ">
+        <img src="~/images/Companies/ibm.jpg">
+        <figcaption>
+            <h1> IBM </h1>
+
+            <a href="https://aws.amazon.com/contact-us/?nc2=h_header" class="button">Read More</a>
+        </figcaption>
+    </figure>
+    <figure class="col-md-6 col-sm-6" style="padding-left: 0px; padding-right: 0px ">
+        <img src="~/images/Companies/amazon.jpg">
+        <figcaption>
+            <h1>Amazon</h1>
+
+            <a href="https://aws.amazon.com/ai/" class="button">Read More</a>
+        </figcaption>
+    </figure>
+
+
+</section>
+<section id="bg5">
+    <header id="ind">Google</header>
+    <p id="intro">
+        <a href="https://ai.google/" class="button">View Website</a>
+    </p>
+</section>
+<section id="tech" class="row">
+    <figure class="col-md-6 col-sm-6" style="padding-left: 0px; padding-right: 0px">
+        <img src="~/images/Companies/microsoft.jpg">
+        <figcaption>
+            <h1> Microsoft </h1>
+
+            <a href="https://www.microsoft.com/en-us/ai?activetab=pivot1:primaryr6" class="button">Read More</a>
+        </figcaption>
+    </figure>
+    <figure class="col-md-6 col-sm-6" style="padding-left: 0px; padding-right: 0px">
+        <img src="~/images/Companies/CSIRO.jpg">
+        <figcaption>
+            <h1>CSIRO</h1>
+
+            <a href="https://www.csiro.au/" class="button">Read More</a>
+        </figcaption>
+    </figure>
+</section>
+<section id="bg6">
+    <header id="ind">Department of Industry, Science, Energy and Resource</header>
+    <p id="intro">
+        <a href="https://www.industry.gov.au/" class="button">View Website</a>
+    </p>
+</section>
+
+
+<div class="bgis">
+    <div class="bgc bgs">
+        <header id="ind1">Feedback</header>
+
+    </div>
+</div>
+
+
+@if (User.Identity.IsAuthenticated)
+{
+    <div class="bgis">
+        <div class="bgc bgs">
+            <header id="ind4">
+                <a asp-controller="DiscussionForums" asp-action="Create" class="btn btn-primary">Sumbit your feedback</a>
+            </header>
+
+        </div>
+    </div>
+}
+else
+{
+    <div class="bgis">
+        <div class="bgc bgs">
+            <p id="ind5">
+                Please <a href="~/Identity/Account/Login?returnUrl=~/Home/comAndOr">login</a> or
+                <a href="~/Identity/Account/Register?returnUrl=~/Home /comAndOr">create an account</a> to give a feedback.
+            </p>
+        </div>
+    </div>
+}
+
+
+@model IEnumerable<Industry_4._0.Models.DiscussionForum>
+
+@foreach (var item in Model)
+{
+    <h3>@Html.DisplayFor(modelItem => item.Heading)</h3>
+    <h4>@Html.DisplayFor(modelItem => item.TopicTitle)</h4>
+    @*<p>@Html.DisplayFor(modelItem => item.Like)</p>*@
+
+    <p>
+        @{
+            for (int i = 0; i < item.Rating; i++)
+            {
+                <span style="color: #f8bd08; ">&#x2605;</span>
+            }
+            for (int i = 0; i < 5 - item.Rating; i++)
+            {
+                <span>&#x2606;</span>
+            }
+        }
+    </p>
+    <p>@Html.DisplayFor(modelItem => item.MessageContent)</p>
+    <p>Feedback by <b>@Html.DisplayFor(modelItem => item.UserName)</b> on @Html.DisplayFor(modelItem => item.PostDate)</p>
+
+    <a asp-controller="DiscussionForums" asp-action="Details" asp-route-id="@item.Id" class="btn btn-outline-secondary">Details</a>
+    <a asp-route-page="comAndOr" asp-route-folder="Home" asp-controller="DiscussionForums" asp-action="IncreaseAgree" asp-route-id="@item.Id" class="btn btn-success">Agree (@item.Agree)</a>
+    <a asp-route-page="comAndOr" asp-route-folder="Home" asp-controller="DiscussionForums" asp-action="IncreaseDisagree" asp-route-id="@item.Id" class="btn btn-danger">Disagree (@item.Disagree)</a>
+
+    @if (User.IsInRole("Manager"))
+    {
+        <a asp-controller="DiscussionForums" asp-action="Edit" asp-route-id="@item.Id" class="btn btn-outline-secondary">Edit</a>
+        <a asp-controller="DiscussionForums" asp-action="Delete" asp-route-id="@item.Id" class="btn btn-outline-secondary">Delete</a>
+    }
+
+
+
+}
+
